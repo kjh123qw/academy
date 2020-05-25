@@ -26,12 +26,4 @@ const App = () => {
   );
 };
 
-// const WithProvider = () => (
-//   <ApolloProvider client={client}>
-//     <Rehydrated>
-//       <App />
-//     </Rehydrated>
-//   </ApolloProvider>
-// );
-
 export default App;
