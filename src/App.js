@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import "semantic-ui-css/semantic.min.css";
-import "react-datepicker/dist/react-datepicker.css";
+// import "semantic-ui-css/semantic.min.css";
+// import "react-datepicker/dist/react-datepicker.css";
 
 import appSyncConfig from "./aws-exports";
 import { ApolloProvider } from "react-apollo";

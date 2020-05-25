@@ -150,3 +150,26 @@ export const listComments = /* GraphQL */ `
     }
   }
 `;
+export const getAcademyDb = /* GraphQL */ `
+  query GetAcademyDb($Id: String!) {
+    getAcademyDB(Id: $Id) {
+      Id
+      Subject
+    }
+  }
+`;
+export const listAcademyDbs = /* GraphQL */ `
+  query ListAcademyDbs(
+    $filter: TableAcademyDBFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAcademyDBS(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        Id
+        Subject
+      }
+      nextToken
+    }
+  }
+`;
