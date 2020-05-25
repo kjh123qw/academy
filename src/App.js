@@ -8,8 +8,22 @@ import { getAcademyDb } from "./graphql/queries";
 import aws_exports from "./aws-exports";
 Amplify.configure(aws_exports);
 
-const App = () => {
-  return <div>Helloe</div>;
-};
+function App() {
+  return (
+    <Connect query={graphqlOperation(getAcademyDb, { Id: "3" })}>
+      {({ data, loading }) => {
+        if (loading) {
+          return <div>Loading...</div>;
+        }
+
+        return (
+          <div>
+            Helloe <b>{data.getAcademyDB.Subject}</b>
+          </div>
+        );
+      }}
+    </Connect>
+  );
+}
 
 export default App;
