@@ -13,7 +13,7 @@ const App = () => {
     <Connect query={graphqlOperation(getAcademyDb, { Id: "3" })}>
       {({ data, loading }) => {
         if (loading) {
-          return <div>Loading...</div>;
+          return <div>Loading....</div>;
         }
 
         return (
