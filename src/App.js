@@ -1,51 +1,37 @@
 import React from "react";
+import { Grid, Header, Input, List, Segment } from "semantic-ui-react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import "semantic-ui-css/semantic.min.css";
-import "react-datepicker/dist/react-datepicker.css";
+import Amplify, { API, graphqlOperation } from "aws-amplify";
+import { Connect, withAuthenticator } from "aws-amplify-react";
+import { getAcademyDb } from "./graphql/queries";
 
-import appSyncConfig from "./aws-exports";
-import { ApolloProvider } from "react-apollo";
-import AWSAppSyncClient, { defaultDataIdFromObject } from "aws-appsync";
-import { Rehydrated } from "aws-appsync-react";
-
-import "./App.css";
+import aws_exports from "./aws-exports";
+Amplify.configure(aws_exports);
 
 const App = () => {
-  return <div>Hello</div>;
+  return (
+    <Connect query={graphqlOperation(getAcademyDb, { Id: "3" })}>
+      {({ data, loading }) => {
+        if (loading) {
+          return <div>Loading...</div>;
+        }
+
+        return (
+          <div>
+            Helloe <b>{data.getAcademyDB.Subject}</b>
+          </div>
+        );
+      }}
+    </Connect>
+  );
 };
 
-const client = new AWSAppSyncClient({
-  url: appSyncConfig.aws_appsync_graphqlEndpoint,
-  region: appSyncConfig.aws_appsync_region,
-  auth: {
-    type: appSyncConfig.aws_appsync_authenticationType,
-    apiKey: appSyncConfig.aws_appsync_apiKey,
-  },
-  cacheOptions: {
-    dataIdFromObject: (obj) => {
-      let id = defaultDataIdFromObject(obj);
+// const WithProvider = () => (
+//   <ApolloProvider client={client}>
+//     <Rehydrated>
+//       <App />
+//     </Rehydrated>
+//   </ApolloProvider>
+// );
 
-      if (!id) {
-        const { __typename: typename } = obj;
-        switch (typename) {
-          case "Comment":
-            return `${typename}:${obj.commentId}`;
-          default:
-            return id;
-        }
-      }
-
-      return id;
-    },
-  },
-});
-
-const WithProvider = () => (
-  <ApolloProvider client={client}>
-    <Rehydrated>
-      <App />
-    </Rehydrated>
-  </ApolloProvider>
-);
-
-export default WithProvider;
+export default App;
