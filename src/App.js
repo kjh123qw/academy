@@ -1,26 +1,62 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import "semantic-ui-css/semantic.min.css";
+import "react-datepicker/dist/react-datepicker.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+import appSyncConfig from "./aws-exports";
+import { ApolloProvider } from "react-apollo";
+import AWSAppSyncClient, { defaultDataIdFromObject } from "aws-appsync";
+import { Rehydrated } from "aws-appsync-react";
+
+import "./App.css";
+import Testhome from "./Components/Testhome";
+
+const Home = () => (
+  <div className="ui container">
+    <Testhome Id="3" />
+  </div>
+);
+
+const App = () => (
+  <Router>
+    <div>
+      <Route exact={true} path="/" component={Home} />
     </div>
-  );
-}
+  </Router>
+);
 
-export default App;
+const client = new AWSAppSyncClient({
+  url: appSyncConfig.aws_appsync_graphqlEndpoint,
+  region: appSyncConfig.aws_appsync_region,
+  auth: {
+    type: appSyncConfig.aws_appsync_authenticationType,
+    apiKey: appSyncConfig.aws_appsync_apiKey,
+  },
+  cacheOptions: {
+    dataIdFromObject: (obj) => {
+      let id = defaultDataIdFromObject(obj);
+
+      if (!id) {
+        const { __typename: typename } = obj;
+        switch (typename) {
+          case "Comment":
+            return `${typename}:${obj.commentId}`;
+          default:
+            return id;
+        }
+      }
+
+      return id;
+    },
+  },
+});
+
+const WithProvider = () => (
+  <ApolloProvider client={client}>
+    <Rehydrated>
+      <App />
+    </Rehydrated>
+  </ApolloProvider>
+);
+
+export default WithProvider;
