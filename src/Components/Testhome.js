@@ -1,27 +1,16 @@
 // import React from "react";
-// import { graphql } from "react-apollo";
+// import { useState, useEffect } from "react";
+// import { ApolloConsumer } from "react-apollo";
 // import { getAcademyDb } from "../graphql/queries";
 // import gql from "graphql-tag";
 
-// class Testhome extends React.Component {
-//   render() {
-//     const { Id, Subject } = this.props;
-//     console.log({ Id, Subject });
-//     return <div> Hello</div>;
-//   }
-// }
+// const Testhome = (id) => {
+//   const [state, setState] = useState({
+//     loading: true,
+//     error: null,
+//     data: null,
+//   });
+//   return <div>Hello {id}</div>;
+// };
 
-// export default graphql(gql(getAcademyDb), {
-//   options: ({ Id: id }) => ({
-//     fetchPolicy: "cache-first",
-//     variables: { Id: id },
-//   }),
-//   props: ({
-//     data: {
-//       getAcademyDB: { Id, Subject },
-//     },
-//   }) => ({
-//     Id,
-//     Subject,
-//   }),
-// })(Testhome);
+// export default Testhome;
