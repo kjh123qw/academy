@@ -16,5 +16,13 @@
 				}
 			}
 		}
+	},
+	"auth": {
+		"academya461f644": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"customAuth": false
+		}
 	}
 }

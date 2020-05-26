@@ -24,4 +24,4 @@ function App() {
     </Connect>
   );
 }
-export default App;
+export default withAuthenticator(App, { includeGreetings: true });

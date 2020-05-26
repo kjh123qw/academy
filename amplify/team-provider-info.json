@@ -10,6 +10,11 @@
             "StackName": "amplify-academy-kjh-122149",
             "StackId": "arn:aws:cloudformation:ap-northeast-2:631217151068:stack/amplify-academy-kjh-122149/0d155660-9f00-11ea-a8f9-0288fb1d60e2",
             "AmplifyAppId": "d1xqk9j63zkvuz"
+        },
+        "categories": {
+            "auth": {
+                "academya461f644": {}
+            }
         }
     }
 }
