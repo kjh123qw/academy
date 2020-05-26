@@ -1,0 +1,15 @@
+projects:
+  academy-kjh:
+    schemaPath: src/graphql/schema.json
+    includes:
+      - src/graphql/**/*.js
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: javascript
+        generatedFileName: ''
+        docsFilePath: src/graphql
+        region: ap-northeast-2
+        apiId: 54qswzlsabgb3epehzasjmisbq
+        maxDepth: 2
