@@ -15,7 +15,6 @@ function App() {
         if (loading) {
           return <div>Loading...</div>;
         }
-
         return (
           <div>
             Hello <b>{data.getAcademyDB.Subject}</b>
